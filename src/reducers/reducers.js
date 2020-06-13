@@ -1,6 +1,15 @@
 import {combineReducers} from 'redux';
-import {refreshMovieListReducer} from 'reducers/AppReducers';
+import {
+  refreshMovieListReducer,
+  movieModalDisplayReducer,
+} from 'reducers/AppReducers';
+
+import {
+  refreshMovieDescriptionReducer,
+} from 'reducers/DescriptionReducers';
 
 export const rootReducer = combineReducers({
-  app: refreshMovieListReducer,
+  movieList: refreshMovieListReducer,
+  movieModal: movieModalDisplayReducer,
+  movieDescription: refreshMovieDescriptionReducer,
 });

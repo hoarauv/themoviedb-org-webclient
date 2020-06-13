@@ -55,6 +55,7 @@ function* getPopularMoviesList(action) {
         data: requestResult.data.results.map((item) => ({
           title: item.title,
           overview: item.overview,
+          id: item.id,
           picture:
             `https://image.tmdb.org/t/p/w500/${item.backdrop_path}`,
         })),

@@ -12,8 +12,8 @@ export const SEARCH_MOVIE_DESCRIPTION_FAILURE =
  * Action creators
  */
 
-export const searchMovieDescription = (data) =>
-  ({type: SEARCH_MOVIE_DESCRIPTION, data});
+export const searchMovieDescription = (movieId) =>
+  ({type: SEARCH_MOVIE_DESCRIPTION, data: {movieId}});
 export const searchMovieDescriptionResponse = (data) =>
   ({type: SEARCH_MOVIE_DESCRIPTION_RESPONSE, data});
 export const searchMovieDescriptionFailure = (data) =>

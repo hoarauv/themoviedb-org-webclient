@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
-import {searchMovieList} from 'actions/AppActions';
+import {searchMovieList, movieModalOpen, movieModalClose} from 'actions/AppActions';
 import {App as appjsx} from 'components/App/App.jsx';
 
 /**
@@ -26,9 +26,16 @@ class App extends Component {
   refreshList() {
     this.props.searchMovieList(this.props.currentPage);
   }
+  trackScrolling = () => {
+    const wrappedElement = document.getElementById('header');
+    if (this.isBottom(wrappedElement)) {
+      console.log('header bottom reached');
+      document.removeEventListener('scroll', this.trackScrolling);
+    }
+  };
   /**
    * Renders the whole main page
-   * @return {ReactNode} - The ReactNode to be displayed by React
+   * @return {ReactNode} - The ReactNode to be   displayed by React
    */
   render() {
     return appjsx(this.props);
@@ -36,21 +43,28 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(JSON.stringify(state))
   return {
-    computing: state.app.computing,
-    currentPage: state.app.page,
-    currentList: state.app.currentList,
+    computing: state.movieList.computing,
+    currentPage: state.movieList.currentPage,
+    currentList: state.movieList.currentList,
+    movieOnModal: state.movieModal.movieId,
   };
 };
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({searchMovieList}, dispatch);
+  bindActionCreators({
+    searchMovieList,
+    movieModalOpen,
+    movieModalClose,
+  }, dispatch);
 
 App.propTypes = {
   searchMovieList: propTypes.func.isRequired,
   currentPage: propTypes.number.isRequired,
   currentList: propTypes.array.isRequired,
   computing: propTypes.bool.isRequired,
+  movieOnModal: propTypes.number,
 };
 
 export default connect(
