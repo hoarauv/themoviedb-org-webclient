@@ -32,7 +32,6 @@ export function refreshMovieDescriptionReducer(state = initialState, action) {
         id: action.data.id,
       };
     case SEARCH_MOVIE_DESCRIPTION_RESPONSE:
-      console.log('reducer return', JSON.stringify(action.data));
       return {
         ...state,
         id: action.data.id,

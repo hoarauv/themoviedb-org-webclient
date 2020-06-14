@@ -44,12 +44,10 @@ export function* getMovieDetails(action) {
         action.data.movieId,
     );
     if (checkIncompleteResult(requestResult.data)) {
-      console.log('wtf');
       yield put(searchMovieDescriptionFailure({
         errMessage: 'Incomplete Result provided (missing a field).',
       }));
     } else {
-      console.log('yield put', JSON.stringify(requestResult.data));
       yield put(searchMovieDescriptionResponse({
         id: requestResult.data.id,
         title: requestResult.data.title,
@@ -74,7 +72,6 @@ export function* getMovieDetails(action) {
       }));
     }
   } catch (err) {
-    console.log(`an error occured : ${err.message}`);
     yield put(searchMovieDescriptionFailure({errMessage: err.message}));
   }
 }

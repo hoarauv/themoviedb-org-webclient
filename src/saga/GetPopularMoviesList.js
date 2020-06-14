@@ -42,7 +42,7 @@ function* getPopularMoviesList(action) {
         apiKeys['themoviedb.org'],
             ('language' in action.data) ?
               action.data.language : 'en-US',
-            ('page' in action.data) ?
+            ('currentPage' in action.data) ?
               action.data.currentPage + 1 : 1,
     );
     if (checkIncompleteResult(requestResult.data)) {

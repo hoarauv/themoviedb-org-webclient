@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {Modal, ModalBody, ModalFooter, Spinner, Button, ListGroup, ListGroupItem, Container, Row, Col, Image} from 'react-bootstrap';
+import {Modal, Spinner, ListGroup, ListGroupItem, Container, Row, Col, Image} from 'react-bootstrap';
+import BottomScrollListener from 'react-bottom-scroll-listener';
 
 const movieRow = (propArray, openModal) =>
   (propArray.map((prop, index) => (
@@ -73,9 +74,6 @@ const MovieModal = (props) => (
     } }
   >
     <Modal.Header closeButton>
-      <Button align='right'>
-        Share
-      </Button>
     </Modal.Header>
     <Modal.Body style={ {
       minHeight: '80vh',
@@ -96,6 +94,7 @@ const MovieModal = (props) => (
               position: 'absolute',
             } }
             type=""
+            title={props.movieOnModal}
           /> :
           <></>
       }
@@ -108,34 +107,27 @@ MovieModal.propTypes = {
   movieOnModal: propTypes.number,
 };
 
-export const App = (props) => (
-  <Container>
-    <Row>
-      <Col>
-        <ListGroup style={ {marginBottom: '15px'} }>
-          {movieRow(props.currentList, props.movieModalOpen)}
-          <NotReady isReady={ props.computing } />
-        </ListGroup>
-      </Col>
-    </Row>
-    <Row>
-      <Col>
-        <MovieModal
-          closeModal={ props.movieModalClose }
-          movieOnModal={ props.movieOnModal }
-        />
-      </Col>
-    </Row>
-    <script>
-      {
-        window.scroll(function() {
-          if (window.scrollTop() + window.height() == document.height()) {
-            alert('bottom!');
-          }
-        })
-      }
-    </script>
-  </Container>
+export const App = (props, endOfListCallBack) => (
+  <BottomScrollListener onBottom={() => {endOfListCallBack()}}>
+    <Container>
+      <Row>
+        <Col>
+          <ListGroup style={ {marginBottom: '15px'}}>
+            {movieRow(props.currentList, props.movieModalOpen)}
+            <NotReady isReady={ props.computing } />
+          </ListGroup>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <MovieModal
+            closeModal={ props.movieModalClose }
+            movieOnModal={ props.movieOnModal }
+          />
+        </Col>
+      </Row>
+    </Container>
+  </BottomScrollListener>
 );
 
 App.propTypes = {

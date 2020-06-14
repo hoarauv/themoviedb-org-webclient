@@ -3,7 +3,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
-import {searchMovieList, movieModalOpen, movieModalClose} from 'actions/AppActions';
+import {searchMovieList, movieModalOpen, movieModalClose} from
+'actions/AppActions';
 import {App as appjsx} from 'components/App/App.jsx';
 
 /**
@@ -16,34 +17,27 @@ class App extends Component {
    */
   componentDidMount() {
     if (this.props.currentList.length === 0) {
-      this.refreshList();
+      this.props.searchMovieList(this.props.currentPage);
     }
   }
   /**
    * Is ran when the list is empty or when the user is at the end fo the
    * page.
    */
-  refreshList() {
-    this.props.searchMovieList(this.props.currentPage);
+  refreshList = () => {
+    if (this.props.computing === false)
+      this.props.searchMovieList(this.props.currentPage);
   }
-  trackScrolling = () => {
-    const wrappedElement = document.getElementById('header');
-    if (this.isBottom(wrappedElement)) {
-      console.log('header bottom reached');
-      document.removeEventListener('scroll', this.trackScrolling);
-    }
-  };
   /**
    * Renders the whole main page
    * @return {ReactNode} - The ReactNode to be   displayed by React
    */
   render() {
-    return appjsx(this.props);
+    return appjsx(this.props, this.refreshList);
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log(JSON.stringify(state))
   return {
     computing: state.movieList.computing,
     currentPage: state.movieList.currentPage,
