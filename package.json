@@ -16,13 +16,16 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux-devtools-extension": "^2.13.8",
-    "redux-saga": "^1.1.3"
+    "redux-saga": "^1.1.3",
+    "serve": "^11.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-back": "py ./api/app.py",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "serve": "serve -s build",
     "lint": "eslint ./**/*.js ./**/*.jsx",
     "lint-quick-fix": "eslint --fix ./**/*.js ./**/*.jsx",
     "lint-help": "eslint --help"
