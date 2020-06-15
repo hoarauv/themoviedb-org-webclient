@@ -16,6 +16,10 @@ class Description extends Component {
    * reducer
    */
   componentDidMount() {
+    if (this.props.embed === true) {
+      this.refreshDescription(this.props.children);
+      return ;
+    }
     const movieId = this.props.match.params.movie;
     if (this.props.currentMovie !== movieId) {
       this.refreshDescription(movieId);

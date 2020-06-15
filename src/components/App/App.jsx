@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import {Modal, Spinner, ListGroup, ListGroupItem, Container, Row, Col, Image}
   from 'react-bootstrap';
 import BottomScrollListener from 'react-bottom-scroll-listener';
+import Description from 'components/Description/Description';
 
 const movieRow = (propArray, openModal) =>
   (propArray.map((prop, index) => (
@@ -81,26 +82,28 @@ const MovieModal = (props) => (
     <Modal.Body style={ {
       minHeight: '80vh',
       width: '100%',
+      paddingLeft: '1vmin',
+      paddingRight: '1vmin',
+      overflowX:''
     } }
     >
-      {
+      {/* {
         ('movieOnModal' in props && props.movieOnModal !== undefined) ?
-          <iframe
+          <embed
             src={ `/${props.movieOnModal}/description` }
             style={ {
+              position: 'absolute', 
               border: 'none',
-              marginLeft: '46%',
-              transform: 'translate(-50%,0)',
               display: 'block',
-              width: '90%',
-              height: '90%',
-              position: 'absolute',
+              width: '100%',
+              height: '100%',
             } }
             title={ props.movieOnModal }
             type=""
           /> :
           <></>
-      }
+      } */}
+      <Description embed>{props.movieOnModal}</Description>
     </Modal.Body>
   </Modal>
 );

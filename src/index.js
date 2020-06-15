@@ -5,6 +5,8 @@ import * as serviceWorker from 'serviceWorker';
 import {createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 
 import rootSaga from 'saga/saga';
 import {rootReducer} from 'reducers/reducers';
