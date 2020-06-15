@@ -1,27 +1,32 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {Modal, Spinner, ListGroup, ListGroupItem, Container, Row, Col, Image} from 'react-bootstrap';
+import {Modal, Spinner, ListGroup, ListGroupItem, Container, Row, Col, Image}
+  from 'react-bootstrap';
 import BottomScrollListener from 'react-bottom-scroll-listener';
 
 const movieRow = (propArray, openModal) =>
   (propArray.map((prop, index) => (
-    <ListGroupItem key={ index } onClick={ () => openModal(prop.id) }>
+    <ListGroupItem key={ index } onClick={ prop.handleClick }>
       <Container>
-        <Row>
+        <Row className="align-items-center">
           <Col md="3" xs="12">
             <h4>
-              {prop.title}
+              {prop.data.title}
             </h4>
           </Col>
           <Col md="6" xs={ {order: 'last'} }>
-            {prop.overview}
+            {
+              (prop.data.overview.length > 200) ?
+                prop.data.overview.substring(0, 197) + '...' :
+                prop.data.overview
+            }
           </Col>
           <Col md={ {order: 'last'} } xs='12'>
             <Image
-              alt={ `${prop.title}_illustration` }
+              alt={ `${prop.data.title}_illustration` }
               fluid
               rounded
-              src={ prop.picture }
+              src={ prop.data.picture }
             />
           </Col>
         </Row>
@@ -62,9 +67,7 @@ const MovieModal = (props) => (
     backdrop="static"
     centered
     keyboard
-    onHide={ () => {
-      props.closeModal();
-    } }
+    onHide={ props.handleCloseModal }
     scrollable
     show={ 'movieOnModal' in props && props.movieOnModal !== undefined }
     size='lg'
@@ -93,8 +96,8 @@ const MovieModal = (props) => (
               height: '90%',
               position: 'absolute',
             } }
+            title={ props.movieOnModal }
             type=""
-            title={props.movieOnModal}
           /> :
           <></>
       }
@@ -103,16 +106,16 @@ const MovieModal = (props) => (
 );
 
 MovieModal.propTypes = {
-  closeModal: propTypes.func.isRequired,
+  handleCloseModal: propTypes.func.isRequired,
   movieOnModal: propTypes.number,
 };
 
 export const App = (props, endOfListCallBack) => (
-  <BottomScrollListener onBottom={() => {endOfListCallBack()}}>
+  <BottomScrollListener onBottom={ endOfListCallBack }>
     <Container>
       <Row>
         <Col>
-          <ListGroup style={ {marginBottom: '15px'}}>
+          <ListGroup style={ {marginBottom: '15px'} }>
             {movieRow(props.currentList, props.movieModalOpen)}
             <NotReady isReady={ props.computing } />
           </ListGroup>
@@ -121,7 +124,7 @@ export const App = (props, endOfListCallBack) => (
       <Row>
         <Col>
           <MovieModal
-            closeModal={ props.movieModalClose }
+            handleCloseModal={ props.movieModalClose }
             movieOnModal={ props.movieOnModal }
           />
         </Col>
@@ -133,4 +136,7 @@ export const App = (props, endOfListCallBack) => (
 App.propTypes = {
   currentList: propTypes.array.isRequired,
   computing: propTypes.bool.isRequired,
+  movieOnModal: propTypes.number.isRequired,
+  movieModalOpen: propTypes.func.isRequired,
+  movieModalClose: propTypes.func.isRequired,
 };

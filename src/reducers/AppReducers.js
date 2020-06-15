@@ -49,7 +49,16 @@ const movieModalInitialState = {
   movieId: undefined,
 };
 
-export function movieModalDisplayReducer(state = movieModalInitialState, action) {
+/**
+ * Handles movie description modal display/hiding
+ * @param {object} state - The state when the action was dispatched
+ * @param {object} action - The action dispatched
+ * @return {object} - The new state (after the application of the action)
+ */
+export function movieModalDisplayReducer(
+    state = movieModalInitialState,
+    action,
+) {
   switch (action.type) {
     case MOVIE_MODAL_OPEN:
       return {

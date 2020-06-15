@@ -4,13 +4,29 @@ import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
 import {searchMovieList, movieModalOpen, movieModalClose} from
-'actions/AppActions';
+  'actions/AppActions';
 import {App as appjsx} from 'components/App/App.jsx';
 
 /**
  * Represents the main page of the web app
  */
 class App extends Component {
+  /**
+   * Constructor needed here to create the list refresh callback
+   * @param {object} props - The props of App
+   */
+  constructor(props) {
+    super(props);
+    /**
+     * Is ran when the list is empty or when the user is at the end fo the
+     * page.
+     */
+    this.handleRefreshList = () => {
+      if (this.props.computing === false) {
+        this.props.searchMovieList(this.props.currentPage);
+      }
+    };
+  }
   /**
    * Is ran when component is mounted.
    * Updates the list of popular movies for the first time.
@@ -21,19 +37,16 @@ class App extends Component {
     }
   }
   /**
-   * Is ran when the list is empty or when the user is at the end fo the
-   * page.
-   */
-  refreshList = () => {
-    if (this.props.computing === false)
-      this.props.searchMovieList(this.props.currentPage);
-  }
-  /**
    * Renders the whole main page
    * @return {ReactNode} - The ReactNode to be   displayed by React
    */
   render() {
-    return appjsx(this.props, this.refreshList);
+    return appjsx({
+      ...this.props,
+      currentList: this.props.currentList.map((item) =>
+        ({data: item, handleClick: () => this.props.movieModalOpen(item.id)}),
+      ),
+    }, this.handleRefreshList);
   }
 }
 
@@ -55,6 +68,7 @@ const mapDispatchToProps = (dispatch) =>
 
 App.propTypes = {
   searchMovieList: propTypes.func.isRequired,
+  movieModalOpen: propTypes.func.isRequired,
   currentPage: propTypes.number.isRequired,
   currentList: propTypes.array.isRequired,
   computing: propTypes.bool.isRequired,

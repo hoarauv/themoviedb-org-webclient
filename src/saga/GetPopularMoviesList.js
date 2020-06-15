@@ -57,7 +57,9 @@ function* getPopularMoviesList(action) {
           overview: item.overview,
           id: item.id,
           picture:
-            `https://image.tmdb.org/t/p/w500/${item.backdrop_path}`,
+            item.backdrop_path !== null ?
+              `https://image.tmdb.org/t/p/w500/${item.backdrop_path}` :
+              '/movie.png',
         })),
       }));
     }
@@ -67,8 +69,7 @@ function* getPopularMoviesList(action) {
 }
 
 /**
- * Links the function SEARCH_MOVIE_LIST action to the logic needed to be
- * performed.
+ * Links the SEARCH_MOVIE_LIST action to the logic needed to be performed.
  */
 export function* getPopularMoviesListSaga() {
   yield takeLatest(SEARCH_MOVIE_LIST, getPopularMoviesList);

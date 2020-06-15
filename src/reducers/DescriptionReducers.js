@@ -14,14 +14,22 @@ const initialState = {
   originalTitle: undefined,
   spokenLanguages: [],
   productions: [],
+  genres: [],
   runTime: undefined,
   voteAverage: undefined,
   voteCount: undefined,
   releaseDate: undefined,
-  computing: false,
+  computing: true,
   cantAccessDescription: false,
 };
 
+/**
+ * Handles movie description response or failure (sending the request
+ * is done by Saga)
+ * @param {object} state - The state when the action was dispatched
+ * @param {object} action - The action dispatched
+ * @return {object} - The new state (after the application of the action)
+ */
 export function refreshMovieDescriptionReducer(state = initialState, action) {
   switch (action.type) {
     case SEARCH_MOVIE_DESCRIPTION:
@@ -37,6 +45,7 @@ export function refreshMovieDescriptionReducer(state = initialState, action) {
         id: action.data.id,
         title: action.data.title,
         description: action.data.description,
+        genres: action.data.genres,
         adult: action.data.adult,
         homepage: action.data.homepage,
         picture: action.data.picture,

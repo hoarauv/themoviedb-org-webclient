@@ -42,12 +42,15 @@ const mapStateToProps = (state) => {
     title: state.movieDescription.title,
     description: state.movieDescription.description,
     currentMovie: state.movieDescription.id,
+    productions: state.movieDescription.productions,
     isAdult: state.movieDescription.adult,
     homepage: state.movieDescription.homepage,
     oTitle: state.movieDescription.originalTitle,
+    runTime: state.movieDescription.runTime,
     spokenLanguages: state.movieDescription.spokenLanguages,
     duration: state.movieDescription.runTime,
     picture: state.movieDescription.picture,
+    genres: state.movieDescription.genres,
     votes: {
       note: state.movieDescription.voteAverage,
       count: state.movieDescription.voteCount,
@@ -65,7 +68,7 @@ const mapDispatchToProps = (dispatch) =>
 
 Description.propTypes= {
   currentMovie: propTypes.number,
-  match: {params: {movie: propTypes.string.isRequired}},
+  match: propTypes.object.isRequired,
   searchMovieDescription: propTypes.func.isRequired,
 };
 
