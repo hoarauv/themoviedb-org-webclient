@@ -46,10 +46,8 @@ const DescriptionCardSurveyAndDuration = (props) => (
     </Col>
     <Col md='6' xs='12'>
       <Row>
-        <Col md='6' xs='12'>
+        <Col md='12' xs='12'>
           <ProgressBar now={ props.note * 10 } />
-        </Col>
-        <Col md='6' xs='12'>
           <p>
             {props.note * 10}% of satisfaction over {
               props.nbVotes} votes
