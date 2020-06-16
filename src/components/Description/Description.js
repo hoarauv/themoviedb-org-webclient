@@ -72,10 +72,10 @@ const mapDispatchToProps = (dispatch) =>
 
 Description.propTypes= {
   currentMovie: propTypes.number,
-  match: propTypes.object.isRequired,
+  match: propTypes.object,
   searchMovieDescription: propTypes.func.isRequired,
   embed: propTypes.bool,
-  children: propTypes.object,
+  children: propTypes.number,
 };
 
 export default connect(

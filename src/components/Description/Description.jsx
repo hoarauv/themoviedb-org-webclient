@@ -106,7 +106,11 @@ const DescriptionCardMetaInfo = (props) => (
         <></>
     }
     {
-      (props.homepage !== undefined) ?
+      (
+        props.homepage !== undefined &&
+        props.homepage !== null &&
+        props.homepage !== ''
+      ) ?
         <Row><Col>
           <b>More info: </b><a href={ props.homepage }>{props.homepage}</a>
         </Col></Row> :
@@ -120,6 +124,60 @@ DescriptionCardMetaInfo.propTypes = {
   genres: propTypes.array.isRequired,
   homepage: propTypes.string.isRequired,
   spokenLanguages: propTypes.array.isRequired,
+};
+
+const listToListOfChuncks = (list, nbPerChunk) => {
+  let i = 0;
+  const result = [];
+  while (i < list.length) {
+    result.push(list.slice(i, i + nbPerChunk));
+    i += nbPerChunk;
+  }
+  return (result);
+};
+
+const DescriptionCardProductors = (props) => (
+  <>
+    <Row>
+      <Col>
+        <p style={ {marginBottom: '0', marginTop: '1vh'} }>
+          <b>Productors: </b>
+        </p>
+      </Col>
+    </Row>
+    {listToListOfChuncks(props.production, 3).map((rowList, rowIndex) => (
+      <Row className='align-items-center' key={ rowIndex }>
+        {
+          rowList.map((item, itemIndex) => (
+            <Col xs={12} md={4} key={ itemIndex }>
+              <Image
+                alt={ item.name }
+                src={ item.picture }
+                style={ {
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  display: 'block',
+                  maxHeight: '10vmin',
+                  maxWidth: '15vmin',
+                  textAlign: 'center',
+                } }
+              />
+              <p style={ {
+                textAlign: 'center',
+              } }
+              >
+                {item.name}
+              </p>
+            </Col>
+          ))
+        }
+      </Row>
+    ))}
+  </>
+);
+
+DescriptionCardProductors.propTypes = {
+  production: propTypes.array.isRequired,
 };
 
 const DescriptionCardBody = (props) => (
@@ -143,6 +201,7 @@ const DescriptionCardBody = (props) => (
         prod={ props.productions }
         spokenLanguages={ props.spokenLanguages }
       />
+      <DescriptionCardProductors production={ props.productions } />
     </Container>
   </Card.Body>
 );
