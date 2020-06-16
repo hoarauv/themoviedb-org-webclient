@@ -13,6 +13,7 @@ import {rootReducer} from 'reducers/reducers';
 
 import App from 'components/App/App.js';
 import Description from 'components/Description/Description';
+import InvalidPath from 'components/InvalidPath/InvalidPath';
 
 import index, {routerRedirection} from 'index.jsx';
 
@@ -30,7 +31,7 @@ const routes = [
   {exact: true, path: '/home', component: App},
   {exact: true, path: '/:movie/description', component: Description},
   // Will become a redirection to a 404 page.
-  {path: '/', component: routerRedirection('/home')},
+  {path: '/', component: InvalidPath},
 ];
 
 ReactDOM.render(
