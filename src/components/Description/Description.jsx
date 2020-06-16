@@ -49,7 +49,7 @@ const DescriptionCardSurveyAndDuration = (props) => (
         <Col md='12' xs='12'>
           <ProgressBar now={ props.note * 10 } />
           <p>
-            {props.note * 10}% of satisfaction over {
+            <b>{props.note * 10}%</b> of satisfaction over {
               props.nbVotes} votes
           </p>
         </Col>
@@ -99,6 +99,13 @@ const DescriptionCardMetaInfo = (props) => (
       <SpokenLanguagesCol spokenLanguages={ props.spokenLanguages } />
     </Row>
     {
+      (props.releaseDate !== undefined && props.releaseDate !== null) ? (
+        <Row><Col>
+          <p><b>Release Date: </b>{props.releaseDate}</p>
+        </Col></Row>
+      ) : <></>
+    }
+    {
       (props.oTitle !== undefined) ?
         <Row><Col>
           <b>Original Title: </b>{props.oTitle}
@@ -112,10 +119,13 @@ const DescriptionCardMetaInfo = (props) => (
         props.homepage !== ''
       ) ?
         <Row><Col>
-          <b>More info: </b><a href={ props.homepage }>{props.homepage}</a>
+          <p>
+            <b>More info: </b><a href={ props.homepage }>{props.homepage}</a>
+          </p>
         </Col></Row> :
         <></>
     }
+
   </>
 );
 
@@ -124,6 +134,7 @@ DescriptionCardMetaInfo.propTypes = {
   genres: propTypes.array.isRequired,
   homepage: propTypes.string.isRequired,
   spokenLanguages: propTypes.array.isRequired,
+  releaseDate: propTypes.string.isRequired,
 };
 
 const listToListOfChuncks = (list, nbPerChunk) => {
@@ -150,9 +161,9 @@ const DescriptionCardProductors = (props) => (
         {
           rowList.map((item, itemIndex) => (
             <Col
-              xs={12}
-              md={12 / rowList.length}
               key={ itemIndex }
+              md={ 12 / rowList.length }
+              xs={ 12 }
             >
               <Image
                 alt={ item.name }
@@ -203,6 +214,7 @@ const DescriptionCardBody = (props) => (
         homepage={ props.homepage }
         oTitle={ props.oTitle }
         prod={ props.productions }
+        releaseDate={ props.releaseDate }
         spokenLanguages={ props.spokenLanguages }
       />
       <DescriptionCardProductors production={ props.productions } />
@@ -221,6 +233,7 @@ DescriptionCardBody.propTypes = {
   duration: propTypes.number.isRequired,
   productions: propTypes.array.isRequired,
   genres: propTypes.array.isRequired,
+  releaseDate: propTypes.string.isRequired,
 };
 
 /**
@@ -232,14 +245,9 @@ function DescriptionLoaded(props) {
   const isFramed = window.location !== window.parent.location;
   return (
     <Container
-      style={ (isFramed) ? {
+      style={ {
         width: '100%',
-        marginTop: '2vh',
-      } : {
-        width: '100%',
-        marginTop: '4vh',
-      }
-      }
+      } }
     >
       <Row>
         <Col>
@@ -264,6 +272,7 @@ function DescriptionLoaded(props) {
               homepage={ props.homepage }
               oTitle={ props.oTitle }
               productions={ props.productions }
+              releaseDate={ props.releaseDate }
               spokenLanguages={ props.spokenLanguages }
               title={ props.title }
               votes={ props.votes }
@@ -287,6 +296,7 @@ DescriptionLoaded.propTypes = {
   runTime: propTypes.number.isRequired,
   productions: propTypes.array.isRequired,
   genres: propTypes.array.isRequired,
+  releaseDate: propTypes.string.isRequired,
 };
 
 const LoadingDescription = () => (

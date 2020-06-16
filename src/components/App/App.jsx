@@ -87,22 +87,6 @@ const MovieModal = (props) => (
       overflowX: '',
     } }
     >
-      {/* {
-        ('movieOnModal' in props && props.movieOnModal !== undefined) ?
-          <embed
-            src={ `/${props.movieOnModal}/description` }
-            style={ {
-              position: 'absolute',
-              border: 'none',
-              display: 'block',
-              width: '100%',
-              height: '100%',
-            } }
-            title={ props.movieOnModal }
-            type=""
-          /> :
-          <></>
-      } */}
       <Description embed>{props.movieOnModal}</Description>
     </Modal.Body>
   </Modal>
