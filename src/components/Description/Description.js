@@ -18,7 +18,7 @@ class Description extends Component {
   componentDidMount() {
     if (this.props.embed === true) {
       this.refreshDescription(this.props.children);
-      return ;
+      return;
     }
     const movieId = this.props.match.params.movie;
     if (this.props.currentMovie !== movieId) {
@@ -74,6 +74,8 @@ Description.propTypes= {
   currentMovie: propTypes.number,
   match: propTypes.object.isRequired,
   searchMovieDescription: propTypes.func.isRequired,
+  embed: propTypes.bool,
+  children: propTypes.object,
 };
 
 export default connect(

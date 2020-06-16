@@ -84,7 +84,7 @@ const MovieModal = (props) => (
       width: '100%',
       paddingLeft: '1vmin',
       paddingRight: '1vmin',
-      overflowX:''
+      overflowX: '',
     } }
     >
       {/* {
@@ -92,7 +92,7 @@ const MovieModal = (props) => (
           <embed
             src={ `/${props.movieOnModal}/description` }
             style={ {
-              position: 'absolute', 
+              position: 'absolute',
               border: 'none',
               display: 'block',
               width: '100%',

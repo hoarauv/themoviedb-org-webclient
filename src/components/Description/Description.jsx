@@ -175,7 +175,7 @@ function DescriptionLoaded(props) {
         width: '100%',
         marginTop: '2vh',
       } : {
-        width:'100%', 
+        width: '100%',
         marginTop: '4vh',
       }
       }
@@ -184,9 +184,9 @@ function DescriptionLoaded(props) {
         <Col>
           <Card
             style={ {
-              marginLeft:'auto',
-              marginRight:'auto',
-              display:'block',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              display: 'block',
               minWidth: '300px',
               height: '100%',
               width: (isFramed) ?
