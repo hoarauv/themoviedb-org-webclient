@@ -149,7 +149,11 @@ const DescriptionCardProductors = (props) => (
       <Row className='align-items-center' key={ rowIndex }>
         {
           rowList.map((item, itemIndex) => (
-            <Col xs={12} md={4} key={ itemIndex }>
+            <Col
+              xs={12}
+              md={12 / rowList.length}
+              key={ itemIndex }
+            >
               <Image
                 alt={ item.name }
                 src={ item.picture }
